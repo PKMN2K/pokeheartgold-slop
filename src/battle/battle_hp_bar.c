@@ -640,7 +640,7 @@ void BattleHpBar_LoadResources(BattleHpBar *hpBar) {
     hpBar->boxObj = ov12_02264968(spriteSystem, spriteManager, hpBar->type);
 
     ov12_022648EC(spriteSystem, spriteManager, narc, plttData, hpBar->type);
-    if (hpBar->arrowObj != NULL) {
+    if (hpBar->arrowObj) {
         Sprite_SetPositionXY(hpBar->arrowObj->sprite, tmplate->x - sHpBarArrowXOffsets[hpBar->type], tmplate->y + 0);
     }
     NARC_Delete(narc);
