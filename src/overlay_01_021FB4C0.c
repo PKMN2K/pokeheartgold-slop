@@ -51,45 +51,20 @@ void ov01_021FB554(UnkStruct_Ov01_021FB4C0_sub *slot) {
     ov01_021FB584(slot);
 }
 
-#ifdef NONMATCHING
 static void ov01_021FB55C(UnkStruct_Ov01_021FB4C0 *manager) {
     u8 *p = (u8 *)manager;
-    u32 size = sizeof(UnkStruct_Ov01_021FB4C0);
-    int i;
+    int i = sizeof(UnkStruct_Ov01_021FB4C0);
+
     do {
         *p++ = 0;
-    } while (--size);
+    } while (--i);
+
     manager->state = 0;
     for (i = 0; i < 2; i++) {
         ov01_021FB584(&manager->slots[i]);
     }
 }
-#else
-// clang-format off
-asm static void ov01_021FB55C(UnkStruct_Ov01_021FB4C0 *manager) {
-    push {r3, r4, r5, lr}
-    add r3, r0, #0
-    mov r2, #0x1c
-    mov r1, #0
-_021FB564:
-    strb r1, [r3]
-    add r3, r3, #1
-    sub r2, r2, #1
-    bne _021FB564
-    mov r4, #0
-    str r4, [r0]
-    add r5, r0, #4
-_021FB572:
-    add r0, r5, #0
-    bl ov01_021FB584
-    add r4, r4, #1
-    add r5, #0xc
-    cmp r4, #2
-    blt _021FB572
-    pop {r3, r4, r5, pc}
-}
-// clang-format on
-#endif // NONMATCHING
+
 
 static void ov01_021FB584(UnkStruct_Ov01_021FB4C0_sub *slot) {
     slot->used = 0;
