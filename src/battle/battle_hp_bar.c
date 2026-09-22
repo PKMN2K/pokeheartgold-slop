@@ -621,7 +621,6 @@ static void ov12_02264B94(BattleHpBar *hpBar) {
     }
 }
 
-#ifdef NONMATCHING
 void BattleHpBar_LoadResources(BattleHpBar *hpBar) {
     const ManagedSpriteTemplate *tmplate;
     SpriteSystem *spriteSystem;
@@ -646,79 +645,7 @@ void BattleHpBar_LoadResources(BattleHpBar *hpBar) {
     }
     NARC_Delete(narc);
 }
-#else
-// clang-format off
-asm void BattleHpBar_LoadResources(BattleHpBar *hpBar) {
-    push {r4, r5, r6, r7, lr}
-	sub sp, #0xc
-	add r5, r0, #0
-	mov r0, #8
-	mov r1, #5
-	bl NARC_New
-	add r6, r0, #0
-	ldr r0, [r5, #0xc]
-	bl BattleSystem_GetSpriteSystem
-	add r7, r0, #0
-	ldr r0, [r5, #0xc]
-	bl BattleSystem_GetSpriteManager
-	str r0, [sp, #4]
-	ldr r0, [r5, #0xc]
-	bl BattleSystem_GetPaletteData
-	str r0, [sp, #8]
-	add r0, r5, #0
-	add r0, #0x25
-	ldrb r0, [r0, #0]
-	bl BattleHpBar_Util_GetHpBoxSpriteTemplate
-	add r4, r0, #0
-	add r0, r5, #0
-	add r0, #0x25
-	ldrb r0, [r0, #0]
-	ldr r1, [sp, #4]
-	ldr r3, [sp, #8]
-	str r0, [sp, #0]
-	add r0, r7, #0
-	add r2, r6, #0
-	bl ov12_02264824
-	add r2, r5, #0
-	add r2, #0x25
-	ldrb r2, [r2, #0]
-	ldr r1, [sp, #4]
-	add r0, r7, #0
-	bl ov12_02264968
-	str r0, [r5, #4]
-	add r0, r5, #0
-	add r0, #0x25
-	ldrb r0, [r0, #0]
-	ldr r1, [sp, #4]
-	ldr r3, [sp, #8]
-	str r0, [sp, #0]
-	add r0, r7, #0
-	add r2, r6, #0
-	bl ov12_022648EC
-	ldr r0, [r5, #8]
-	cmp r0, #0
-	beq _02264C5A
-	add r5, #0x25
-	ldrb r3, [r5, #0]
-	ldr r2, =sHpBarArrowXOffsets
-	mov r1, #0
-	ldrsh r1, [r4, r1]
-	ldrsb r2, [r2, r3]
-	ldr r0, [r0, #0]
-	sub r1, r1, r2
-	mov r2, #2
-	lsl r1, r1, #0x10
-	ldrsh r2, [r4, r2]
-	asr r1, r1, #0x10
-	bl Sprite_SetPositionXY
-_02264C5A:
-	add r0, r6, #0
-	bl NARC_Delete
-	add sp, #0xc
-	pop {r4, r5, r6, r7, pc}
-}
-// clang-format on
-#endif // NONMATCHING
+
 
 void BattleHpBar_FreeResources(BattleHpBar *hpBar) {
     ov12_02264B28(hpBar);
