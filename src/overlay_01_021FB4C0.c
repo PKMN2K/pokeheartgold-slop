@@ -53,15 +53,18 @@ void ov01_021FB554(UnkStruct_Ov01_021FB4C0_sub *slot) {
 
 static void ov01_021FB55C(UnkStruct_Ov01_021FB4C0 *manager) {
     u8 *p = (u8 *)manager;
-    int i = sizeof(UnkStruct_Ov01_021FB4C0);
+    u32 size = sizeof(UnkStruct_Ov01_021FB4C0);
 
     do {
         *p++ = 0;
-    } while (--i);
+    } while (--size);
 
-    manager->state = 0;
-    for (i = 0; i < 2; i++) {
-        ov01_021FB584(&manager->slots[i]);
+    {
+        register int i = 0;
+        manager->state = i;
+        for (; i < 2; i++) {
+            ov01_021FB584(&manager->slots[i]);
+        }
     }
 }
 
