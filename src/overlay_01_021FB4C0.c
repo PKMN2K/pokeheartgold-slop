@@ -1,5 +1,7 @@
 #include "global.h"
 
+#include <string.h>
+
 #include "heap.h"
 #include "overlay_01_021FB4C0_internal.h"
 #include "system.h"
@@ -52,19 +54,11 @@ void ov01_021FB554(UnkStruct_Ov01_021FB4C0_sub *slot) {
 }
 
 static void ov01_021FB55C(UnkStruct_Ov01_021FB4C0 *manager) {
-    u8 *p = (u8 *)manager;
-    u32 size = sizeof(UnkStruct_Ov01_021FB4C0);
+    memset(manager, 0, sizeof(UnkStruct_Ov01_021FB4C0));
+    manager->state = 0;
 
-    do {
-        *p++ = 0;
-    } while (--size);
-
-    {
-        register int i = 0;
-        manager->state = i;
-        for (; i < 2; i++) {
-            ov01_021FB584(&manager->slots[i]);
-        }
+    for (int i = 0; i < 2; i++) {
+        ov01_021FB584(&manager->slots[i]);
     }
 }
 
