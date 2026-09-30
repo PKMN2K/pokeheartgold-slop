@@ -14,16 +14,6 @@
 
 	.text
 
-	thumb_func_start ov01_021FB878
-ov01_021FB878: ; 0x021FB878
-	ldr r2, [r1, #0x14]
-	ldr r3, _021FB884 ; =Heap_Realloc
-	add r1, r1, r2
-	sub r1, r1, r0
-	bx r3
-	nop
-_021FB884: .word Heap_Realloc
-	thumb_func_end ov01_021FB878
 
 	thumb_func_start AreaDataManager_Alloc
 AreaDataManager_Alloc: ; 0x021FB888
